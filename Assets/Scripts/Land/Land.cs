@@ -5,5 +5,10 @@ using DG.Tweening;
 
 public class Land : MonoBehaviour
 {
-   
+    internal Line[] Lines;
+
+    private void Awake()
+    {
+        Lines = GetComponentsInChildren<Line>();
+    }
 }

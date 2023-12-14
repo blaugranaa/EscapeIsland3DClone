@@ -6,7 +6,8 @@ using UnityEngine;
 public class Line : MonoBehaviour
 {
     public StickmanTypes stickmanType;
-    Transform[] lineCells;
+    internal Transform[] lineCells;
+    internal Stickman[] stickmans =new Stickman[4];
     private void Awake()
     {
         lineCells = GetComponentsInChildren<Transform>().Skip(1).ToArray();
@@ -26,7 +27,10 @@ public class Line : MonoBehaviour
             var stickman = PoolingSystem.Instance.InstantiateAPS($"{stickmanType}Stickman", lineCells[i].position, Quaternion.identity);
             stickman.transform.SetParent(lineCells[i], true);
             stickman.transform.localEulerAngles = Vector3.zero;
+            stickmans[i] = stickman.GetComponent<Stickman>();
+
         }
+
 
     }
 }

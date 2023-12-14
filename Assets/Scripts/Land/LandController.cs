@@ -7,6 +7,8 @@ public class LandController : MonoBehaviour
 {
     Land firstSelected;
     Land lastSelected;
+    public Land[] Lands;
+
 
 
 
@@ -62,7 +64,16 @@ public class LandController : MonoBehaviour
        };
         var lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         lineRenderer.SetPositions(landPathPos);
-
+        MoveStickman(lineRenderer);
 
     }
+
+    public void MoveStickman(LineRenderer lineRenderer)
+    {
+        firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[3].ChooseCharactersForMovement(lineRenderer, lastSelected);
+
+    }
+
+
+
 }
