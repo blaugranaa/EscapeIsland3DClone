@@ -7,6 +7,13 @@ public class LandController : MonoBehaviour
 {
     Land firstSelected;
     Land lastSelected;
+    private LineRenderer lineRenderer;
+
+
+    private void Awake()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+    }
 
 
     private void Update()
@@ -25,13 +32,13 @@ public class LandController : MonoBehaviour
             {
                 if (firstSelected is null)
                 {
-                    land.transform.DOMoveY(1, 1);
+                    land.transform.DOMoveY(1, 0.3f);
 
                     firstSelected = land;
                 }
                 else if (firstSelected == land)
                 {
-                    land.transform.DOMoveY(0, 1);
+                    land.transform.DOMoveY(0, 0.3f);
 
                     firstSelected = null;
                     lastSelected = null;
@@ -40,7 +47,8 @@ public class LandController : MonoBehaviour
                 else
                 {
                     lastSelected = land;
-                    firstSelected.transform.DOMoveY(0, 1);
+
+                    firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(DrawPathBetweenLands);
 
                 }
 
@@ -51,6 +59,15 @@ public class LandController : MonoBehaviour
 
     private void DrawPathBetweenLands()
     {
+        Vector3[] landPathPos = new Vector3[]
+       {
+             new Vector3(firstSelected.transform.position.x, 0, firstSelected.transform.position.z),
+            new Vector3(0, 0, firstSelected.transform.position.z),
+            new Vector3(0, 0, lastSelected.transform.position.z),
+            lastSelected.transform.position
+       };
+        lineRenderer.SetPositions(landPathPos);
+        lineRenderer.enabled = true;
 
 
     }
