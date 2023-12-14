@@ -7,13 +7,7 @@ public class LandController : MonoBehaviour
 {
     Land firstSelected;
     Land lastSelected;
-    private LineRenderer lineRenderer;
 
-
-    private void Awake()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-    }
 
 
     private void Update()
@@ -66,8 +60,8 @@ public class LandController : MonoBehaviour
             new Vector3(0, 0, lastSelected.transform.position.z),
             lastSelected.transform.position
        };
+        var lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         lineRenderer.SetPositions(landPathPos);
-        lineRenderer.enabled = true;
 
 
     }
