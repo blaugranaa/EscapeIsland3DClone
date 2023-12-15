@@ -6,25 +6,25 @@ using DG.Tweening;
 public class Land : MonoBehaviour
 {
     internal Line[] Lines;
+    private List<Line> avalaibleLines = new List<Line>();
 
     private void Awake()
     {
         Lines = GetComponentsInChildren<Line>();
     }
 
-    public Line GetAvailableLine()
+    public List<Line> GetAvailableLines()
     {
-        Line availableLine = null;
+        avalaibleLines.Clear();
 
         for (int i = Lines.Length - 1; i >= 0; i--)
         {
             if (!Lines[i].isFull)
             {
-                availableLine = Lines[i];
-                break;
+                avalaibleLines.Add(Lines[i]);
             }
         }
 
-        return availableLine;
+        return avalaibleLines;
     }
 }

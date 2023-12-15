@@ -13,7 +13,7 @@ public class Stickman : MonoBehaviour
     List<Vector3> pathList = new List<Vector3>();
 
 
-    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos, int order)
+    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos, int order, Line targetLine)
     {
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -44,10 +44,12 @@ public class Stickman : MonoBehaviour
             finalLine.stickmanType = _stickmanType;
             finalLine.stickmans[order] = this;
             pathList.Clear();
+            
 
             if (order == 3)
             {
                 EventManager.Broadcast(GameEvent.OnStickmanMoved);
+                targetLine.isFull = true;
 
             }
         });

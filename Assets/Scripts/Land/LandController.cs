@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 
@@ -73,32 +74,42 @@ public class LandController : MonoBehaviour
         };
         _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         _lineRenderer.SetPositions(landPathPos);
+        StartCoroutine(MoveStickmanLinesCo());
+       
+    }
 
+    IEnumerator MoveStickmanLinesCo()
+    {
+     
         var lines = GetFirstAvalaibleGroup();
-        foreach (var line in lines)
+        var targetLines = lastSelected.GetAvailableLines();
+        if (lines.Count > targetLines.Count)
         {
-            StartCoroutine(MoveStickman(_lineRenderer, line));
+            yield return null ;
         }
-        
-        
+
+        for (int i = lines.Count-1; i >=0 ; i--)
+        {
+            StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count-1) -i],targetLines[i]));
+            yield return new WaitForSeconds(0.8f);
+        }
+     
     }
 
 
-    IEnumerator MoveStickman(LineRenderer lineRenderer, Line line)
+    IEnumerator MoveStickman(LineRenderer lineRenderer, Line line, Line _targetLine)
     {
         for (int i = 0; i < 4; i++)
         {
             line.stickmans[i]
-                .ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i], i);
+                .ChooseCharactersForMovement(lineRenderer, _targetLine.lineCells[i], i, _targetLine);
             line.stickmans[i] = null;
             line.stickmanType = StickmanTypes.None;
-            
+
             yield return new WaitForSeconds(0.2f);
         }
 
         line.isFull = false;
-
-
     }
 
     List<Line> GetFirstAvalaibleGroup()
@@ -109,25 +120,22 @@ public class LandController : MonoBehaviour
         {
             if (firstSelected.Lines[i].stickmanType == StickmanTypes.None)
                 continue;
+
+            if (isFirst)
+            {
+                isFirst = false;
+                frontLineType = firstSelected.Lines[i].stickmanType;
+                sameTypeLines.Add(firstSelected.Lines[i]);
+                continue;
+            }
+
+            if (firstSelected.Lines[i].stickmanType == frontLineType)
+            {
+                sameTypeLines.Add(firstSelected.Lines[i]);
+            }
             else
             {
-                if (isFirst)
-                {
-                    isFirst = false;
-                    frontLineType = firstSelected.Lines[i].stickmanType;
-                    sameTypeLines.Add(firstSelected.Lines[i]);
-                    continue;
-                }
-
-                if (firstSelected.Lines[i].stickmanType == frontLineType)
-                {
-                    sameTypeLines.Add(firstSelected.Lines[i]);
-                }
-                else
-                {
-                    return sameTypeLines;
-                    break;
-                }
+                return sameTypeLines;
             }
         }
 
@@ -136,13 +144,11 @@ public class LandController : MonoBehaviour
 
     public void ResetLineRenderer()
     {
-        lastSelected.GetAvailableLine().isFull = true;
+        // lastSelected.GetAvailableLine().isFull = true;
         lastSelected = null;
         firstSelected = null;
-        
+
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
         sameTypeLines.Clear();
-        
-
     }
 }
