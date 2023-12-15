@@ -141,44 +141,11 @@ public class LandController : MonoBehaviour
 
     public void ResetLineRenderer()
     {
-        var containerLand = lastSelected;
-        // CheckLandCompleted(containerLand);
         lastSelected = null;
         firstSelected = null;
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
         sameTypeLines.Clear();
     }
 
-    void CheckLandCompleted(Land land)
-    {
-        List<Line> sameLines = new();
-        sameLines.Clear();
-        var frontLineType = StickmanTypes.None;
-        bool isFirst = true;
-        for (var i = 0; i < 4; i++)
-        {
-            if (land.Lines[i].stickmanType == StickmanTypes.None)
-                continue;
-
-            if (isFirst)
-            {
-                isFirst = false;
-                frontLineType = land.Lines[i].stickmanType;
-                sameLines.Add(land.Lines[i]);
-                continue;
-            }
-
-            if (land.Lines[i].stickmanType == frontLineType)
-            {
-                sameLines.Add(land.Lines[i]);
-            }
-        }
-
-        if (sameLines.Count==4)
-        {
-            Debug.Log("COMPLETED");
-
-        }
-       
-    }
+    
 }
