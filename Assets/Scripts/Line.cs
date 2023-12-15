@@ -29,8 +29,8 @@ public class Line : MonoBehaviour
             stickman.transform.SetParent(lineCells[i], true);
             stickman.transform.localEulerAngles = Vector3.zero;
             stickmans[i] = stickman.GetComponent<Stickman>();
+            
         }
-
-
+        isFull = true;
     }
 }

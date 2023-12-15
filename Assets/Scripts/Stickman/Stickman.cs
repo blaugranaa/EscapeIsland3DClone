@@ -4,14 +4,16 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
 
+
 public class Stickman : MonoBehaviour
 {
+    public StickmanTypes _stickmanType;
     private LineRenderer _lineRenderer;
 
     List<Vector3> pathList = new List<Vector3>();
-    
 
-    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos,int order)
+
+    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos, int order)
     {
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -23,33 +25,31 @@ public class Stickman : MonoBehaviour
         pathList.Add(lastPosition);
 
         transform.DOPath(pathList.ToArray(), 2f, PathType.Linear).OnWaypointChange(index =>
-          {
-              if (index < pathList.Count - 1)
-              {
-                  Vector3 direction = (pathList[index + 1] - pathList[index]).normalized;
+        {
+            if (index < pathList.Count - 1)
+            {
+                Vector3 direction = (pathList[index + 1] - pathList[index]).normalized;
 
-                  Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+                Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 
-                  transform.DORotateQuaternion(rotation, 0.1f);
+                transform.DORotateQuaternion(rotation, 0.1f);
+            }
+        }).OnComplete(() =>
+        {
+            pathList.Remove(lastPosition);
+            transform.SetParent(finalPos);
 
-              }
-         }).OnComplete(() =>
-          {
-              pathList.Remove(lastPosition);
-              transform.DORotate(new Vector3(0, 90, 0), 0.1f, RotateMode.LocalAxisAdd);
-              transform.SetParent(finalPos);
-              var finalLine = finalPos.GetComponentInParent<Line>();
-              finalLine.stickmans[order] = this;
-              pathList.Clear();
+            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f);
+            var finalLine = finalPos.GetComponentInParent<Line>();
+            finalLine.stickmanType = _stickmanType;
+            finalLine.stickmans[order] = this;
+            pathList.Clear();
 
-              if (order ==3)
-              {
-                  EventManager.Broadcast(GameEvent.OnStickmanMoved);
+            if (order == 3)
+            {
+                EventManager.Broadcast(GameEvent.OnStickmanMoved);
 
-              }
-
-          });
-
+            }
+        });
     }
-
 }

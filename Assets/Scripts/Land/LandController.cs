@@ -8,23 +8,26 @@ public class LandController : MonoBehaviour
     Land firstSelected;
     Land lastSelected;
     public Land[] Lands;
+    private List<Line> sameTypeLines = new();
+
 
     LineRenderer _lineRenderer;
 
 
-
     private void OnEnable()
     {
-        EventManager.AddListener(GameEvent.OnStickmanMoved,ResetLineRenderer);
+        EventManager.AddListener(GameEvent.OnStickmanMoved, ResetLineRenderer);
     }
 
     private void OnDisable()
     {
-        EventManager.RemoveListener(GameEvent.OnStickmanMoved,ResetLineRenderer);
+        EventManager.RemoveListener(GameEvent.OnStickmanMoved, ResetLineRenderer);
     }
+
     private void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+            Camera.main.nearClipPlane));
 
         const float maxDistance = 300f;
         if (Input.GetMouseButtonDown(0))
@@ -48,14 +51,12 @@ public class LandController : MonoBehaviour
 
                     firstSelected = null;
                     lastSelected = null;
-
                 }
                 else
                 {
                     lastSelected = land;
 
                     firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(DrawPathBetweenLands);
-
                 }
             }
         }
@@ -64,40 +65,84 @@ public class LandController : MonoBehaviour
     private void DrawPathBetweenLands()
     {
         Vector3[] landPathPos = new Vector3[]
-       {
-             new Vector3(firstSelected.transform.position.x, 0, firstSelected.transform.position.z),
+        {
+            new Vector3(firstSelected.transform.position.x, 0, firstSelected.transform.position.z),
             new Vector3(0, 0, firstSelected.transform.position.z),
             new Vector3(0, 0, lastSelected.transform.position.z),
             lastSelected.transform.position
-       };
+        };
         _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         _lineRenderer.SetPositions(landPathPos);
 
-
-        StartCoroutine(MoveStickman(_lineRenderer));
-
+        var lines = GetFirstAvalaibleGroup();
+        foreach (var line in lines)
+        {
+            StartCoroutine(MoveStickman(_lineRenderer, line));
+        }
+        
+        
     }
 
 
-    IEnumerator MoveStickman(LineRenderer lineRenderer)
+    IEnumerator MoveStickman(LineRenderer lineRenderer, Line line)
     {
-
-        for (int i = 0; i < firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
-
-            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i].ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i], i);
-            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i] = null;
+            line.stickmans[i]
+                .ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i], i);
+            line.stickmans[i] = null;
+            line.stickmanType = StickmanTypes.None;
+            
             yield return new WaitForSeconds(0.2f);
-
         }
 
+        line.isFull = false;
+
+
     }
 
-    public void ResetLineRenderer( )
+    List<Line> GetFirstAvalaibleGroup()
     {
+        var frontLineType = StickmanTypes.None;
+        bool isFirst = true;
+        for (var i = 0; i < 4; i++)
+        {
+            if (firstSelected.Lines[i].stickmanType == StickmanTypes.None)
+                continue;
+            else
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                    frontLineType = firstSelected.Lines[i].stickmanType;
+                    sameTypeLines.Add(firstSelected.Lines[i]);
+                    continue;
+                }
+
+                if (firstSelected.Lines[i].stickmanType == frontLineType)
+                {
+                    sameTypeLines.Add(firstSelected.Lines[i]);
+                }
+                else
+                {
+                    return sameTypeLines;
+                    break;
+                }
+            }
+        }
+
+        return sameTypeLines;
+    }
+
+    public void ResetLineRenderer()
+    {
+        lastSelected.GetAvailableLine().isFull = true;
         lastSelected = null;
         firstSelected = null;
+        
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
-    }
+        sameTypeLines.Clear();
+        
 
+    }
 }
