@@ -47,9 +47,7 @@ public class LandController : MonoBehaviour
                     firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(DrawPathBetweenLands);
 
                 }
-
             }
-
         }
     }
 
@@ -70,10 +68,12 @@ public class LandController : MonoBehaviour
 
     public void MoveStickman(LineRenderer lineRenderer)
     {
-        firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[3].ChooseCharactersForMovement(lineRenderer, lastSelected);
+        //firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[3].ChooseCharactersForMovement(lineRenderer, lastSelected);
 
+        for (int i = 0; i < firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans.Length; i++)
+        {
+            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i].ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i]);
+        }
     }
-
-
 
 }

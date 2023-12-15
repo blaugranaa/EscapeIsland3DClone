@@ -8,6 +8,7 @@ public class Line : MonoBehaviour
     public StickmanTypes stickmanType;
     internal Transform[] lineCells;
     internal Stickman[] stickmans =new Stickman[4];
+    internal bool isFull;
     private void Awake()
     {
         lineCells = GetComponentsInChildren<Transform>().Skip(1).ToArray();
