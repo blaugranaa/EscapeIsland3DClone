@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
     public enum GameEvent
     {
-        OnGameStart, OnNextLevel,OnReloadLevel, OnLevelFinish, OnMoneyCollect, OnLevelDataChange, LevelFail, OnPlayerDataChange
+        OnGameStart, OnNextLevel,OnReloadLevel, OnLevelFinish, OnMoneyCollect, OnLevelDataChange, LevelFail, OnPlayerDataChange, OnStickmanMoved
     }
 
     public static class EventManager

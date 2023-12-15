@@ -8,13 +8,10 @@ public class Stickman : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
 
-
-
     List<Vector3> pathList = new List<Vector3>();
-    private bool canMove;
-    float moveSpeed;
+    
 
-    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos)
+    public void ChooseCharactersForMovement(LineRenderer lineRenderer, Transform finalPos,int order)
     {
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -34,11 +31,22 @@ public class Stickman : MonoBehaviour
                   Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 
                   transform.DORotateQuaternion(rotation, 0.1f);
+
               }
          }).OnComplete(() =>
           {
               pathList.Remove(lastPosition);
               transform.DORotate(new Vector3(0, 90, 0), 0.1f, RotateMode.LocalAxisAdd);
+              transform.SetParent(finalPos);
+              var finalLine = finalPos.GetComponentInParent<Line>();
+              finalLine.stickmans[order] = this;
+              pathList.Clear();
+
+              if (order ==3)
+              {
+                  EventManager.Broadcast(GameEvent.OnStickmanMoved);
+
+              }
 
           });
 

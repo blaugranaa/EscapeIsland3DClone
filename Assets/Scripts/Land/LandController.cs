@@ -9,9 +9,19 @@ public class LandController : MonoBehaviour
     Land lastSelected;
     public Land[] Lands;
 
+    LineRenderer _lineRenderer;
 
 
 
+    private void OnEnable()
+    {
+        EventManager.AddListener(GameEvent.OnStickmanMoved,ResetLineRenderer);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.RemoveListener(GameEvent.OnStickmanMoved,ResetLineRenderer);
+    }
     private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
@@ -60,20 +70,34 @@ public class LandController : MonoBehaviour
             new Vector3(0, 0, lastSelected.transform.position.z),
             lastSelected.transform.position
        };
-        var lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
-        lineRenderer.SetPositions(landPathPos);
-        MoveStickman(lineRenderer);
+        _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
+        _lineRenderer.SetPositions(landPathPos);
+
+
+        StartCoroutine(MoveStickman(_lineRenderer));
 
     }
 
-    public void MoveStickman(LineRenderer lineRenderer)
+
+    IEnumerator MoveStickman(LineRenderer lineRenderer)
     {
-        //firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[3].ChooseCharactersForMovement(lineRenderer, lastSelected);
 
         for (int i = 0; i < firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans.Length; i++)
         {
-            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i].ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i]);
+
+            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i].ChooseCharactersForMovement(lineRenderer, lastSelected.GetAvailableLine().lineCells[i], i);
+            firstSelected.Lines[firstSelected.Lines.Length - 1].stickmans[i] = null;
+            yield return new WaitForSeconds(0.2f);
+
         }
+
+    }
+
+    public void ResetLineRenderer( )
+    {
+        lastSelected = null;
+        firstSelected = null;
+        PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
     }
 
 }
