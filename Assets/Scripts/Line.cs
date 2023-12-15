@@ -24,7 +24,6 @@ public class Line : MonoBehaviour
     {
         for (int i = 0; i < lineCells.Length; i++)
         {
-            Debug.Log(lineCells[i].name);
             var stickman = PoolingSystem.Instance.InstantiateAPS($"{stickmanType}Stickman", lineCells[i].position, Quaternion.identity);
             stickman.transform.SetParent(lineCells[i], true);
             stickman.transform.localEulerAngles = Vector3.zero;

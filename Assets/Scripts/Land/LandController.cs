@@ -75,25 +75,22 @@ public class LandController : MonoBehaviour
         _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         _lineRenderer.SetPositions(landPathPos);
         StartCoroutine(MoveStickmanLinesCo());
-       
     }
 
     IEnumerator MoveStickmanLinesCo()
     {
-     
         var lines = GetFirstAvalaibleGroup();
         var targetLines = lastSelected.GetAvailableLines();
         if (lines.Count > targetLines.Count)
         {
-            yield return null ;
+            yield return null;
         }
 
-        for (int i = lines.Count-1; i >=0 ; i--)
+        for (int i = lines.Count - 1; i >= 0; i--)
         {
-            StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count-1) -i],targetLines[i]));
+            StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count - 1) - i], targetLines[i]));
             yield return new WaitForSeconds(0.8f);
         }
-     
     }
 
 
@@ -144,11 +141,35 @@ public class LandController : MonoBehaviour
 
     public void ResetLineRenderer()
     {
-        // lastSelected.GetAvailableLine().isFull = true;
+        CheckLandCompleted();
         lastSelected = null;
         firstSelected = null;
-
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
         sameTypeLines.Clear();
+    }
+
+    void CheckLandCompleted()
+    {
+        int i = 0;
+        bool isCompleted = false;
+        StickmanTypes _currentType = lastSelected.Lines[0].stickmanType;
+        foreach (var line in lastSelected.Lines)
+        {
+            if (_currentType == line.stickmanType)
+            {
+                i++;
+                isCompleted = true;
+            }
+            else
+            {
+                isCompleted = false;
+                break;
+            }
+        }
+
+        if (isCompleted && i == 4)
+        {
+            Debug.Log("COMPLETED");
+        }
     }
 }
