@@ -6,17 +6,17 @@ namespace Systems.PoolingSystem
     {
         private void Start()
         {
-            EventManager.AddListener(GameEvent.OnLevelFinish, HandleLevelFinishEvent);
+            EventManager.AddListener(GameEvent.OnLevelChanged, HandleLevelFinishEvent);
         }
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener(GameEvent.OnLevelFinish, HandleLevelFinishEvent);
+            EventManager.RemoveListener(GameEvent.OnLevelChanged, HandleLevelFinishEvent);
         }
 
         private void HandleLevelFinishEvent()
         {
-            EventManager.RemoveListener(GameEvent.OnLevelFinish, HandleLevelFinishEvent);
+            EventManager.RemoveListener(GameEvent.OnLevelChanged, HandleLevelFinishEvent);
         }
     }
 }

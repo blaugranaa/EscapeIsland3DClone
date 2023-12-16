@@ -26,7 +26,6 @@ public class Stickman : MonoBehaviour
         {
             pathList.Add(lineRenderer.GetPosition(i));
         }
-
         var lastPosition = finalPos.position;
 
         pathList.Add(lastPosition);

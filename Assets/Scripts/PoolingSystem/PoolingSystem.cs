@@ -23,8 +23,6 @@ public class PoolingSystem : Singleton<PoolingSystem>
 {
     public List<SourceObjects> SourceObjects = new List<SourceObjects>();
 
-    private List<AudioSource> pooledAudioSources = new List<AudioSource>();
-
 
     public int DefaultCount = 10;
 
@@ -71,27 +69,40 @@ public class PoolingSystem : Singleton<PoolingSystem>
     {
         foreach (var t in SourceObjects.Where(t => string.Equals(t.ID, Id)))
         {
-            foreach (var t1 in t.clones.Where(t1 => !t1.activeInHierarchy))
+            GameObject firstInactive = null;
+
+            foreach (var t1 in t.clones)
             {
-                t1.SetActive(true);
-                //ForEach e al
-                var poolable = t1.GetComponent<IPoolable>();
+                if (t1 != null && !t1.activeInHierarchy)
+                {
+                    firstInactive = t1;
+                    break;
+                }
+            }
+
+            if (firstInactive != null)
+            {
+                firstInactive.SetActive(true);
+
+                var poolable = firstInactive.GetComponent<IPoolable>();
                 if (poolable != null)
                     poolable.Initilize();
 
-                return t1;
+                return firstInactive;
             }
 
-            if (!t.AllowGrow) continue;
+            if (t.AllowGrow)
             {
                 var go = Instantiate(t.SourcePrefab, transform);
                 t.clones.Add(go);
+
                 var poolable = go.GetComponent<IPoolable>();
                 if (poolable != null)
                     poolable.Initilize();
 
                 if (t.AutoDestroy)
                     go.AddComponent<PoolObject>();
+
                 return go;
             }
         }
