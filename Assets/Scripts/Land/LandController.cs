@@ -114,12 +114,6 @@ public class LandController : MonoBehaviour
                 yield return new WaitForSeconds(0.9f);
             }
         }
-       
-
-      
-        
-
-    
     }
 
     void CheckTargetLandColorType(Line line)
@@ -186,6 +180,4 @@ public class LandController : MonoBehaviour
         canClick = true;
         
     }
-
-    
 }

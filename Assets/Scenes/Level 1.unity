@@ -2071,6 +2071,12 @@ MonoBehaviour:
     AllowGrow: 1
     AutoDestroy: 0
     clones: []
+  - ID: RedStickman
+    SourcePrefab: {fileID: 2256448809198169461, guid: 7052633e1ddd3b0499bd1c21b50cc994, type: 3}
+    MinNumberOfObject: 10
+    AllowGrow: 1
+    AutoDestroy: 0
+    clones: []
   DefaultCount: 10
 --- !u!1 &1667758005
 GameObject:
