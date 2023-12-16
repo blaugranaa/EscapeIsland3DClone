@@ -20,9 +20,6 @@ public class LevelLoader : Singleton<LevelLoader>
     private void OnDisable()
     {
         EventManager.RemoveListener(GameEvent.OnLevelChanged,Load);
-
-      
-
     }
 
 

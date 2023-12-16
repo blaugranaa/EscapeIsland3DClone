@@ -7,13 +7,19 @@ using DG.Tweening;
 
 public class LandController : MonoBehaviour
 {
+    public int landNumToComplete;
+
     private Land _firstSelected;
     private Land _lastSelected;
     private Land[] _lands;
+    
     private List<Line> _sameTypeLines = new();
+    
     private LineRenderer _lineRenderer;
+    
     private bool _canClick = true;
-    public int landNumToComplete;
+    
+    private const float tweenDuration = 0.3f;
 
     private void Awake()
     {
@@ -49,13 +55,13 @@ public class LandController : MonoBehaviour
             {
                 if (_firstSelected is null)
                 {
-                    land.transform.DOMoveY(1, 0.3f);
+                    land.transform.DOMoveY(1, tweenDuration);
 
                     _firstSelected = land;
                 }
                 else if (_firstSelected == land)
                 {
-                    land.transform.DOMoveY(0, 0.3f);
+                    land.transform.DOMoveY(0, tweenDuration);
 
                     _firstSelected = null;
                     _lastSelected = null;
@@ -65,7 +71,7 @@ public class LandController : MonoBehaviour
                     _canClick = false;
                     _lastSelected = land;
                     
-                    _firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(()=>StartCoroutine(MoveStickmanLinesCo()));
+                    _firstSelected.transform.DOMoveY(0, tweenDuration).OnComplete(()=>StartCoroutine(MoveStickmanLinesCo()));
                 }
             }
         }
