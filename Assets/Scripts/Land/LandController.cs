@@ -57,8 +57,8 @@ public class LandController : MonoBehaviour
                 {
                     canClick = false;
                     lastSelected = land;
-
-                    firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(DrawPathBetweenLands);
+                    
+                    firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(()=>StartCoroutine(MoveStickmanLinesCo()));
                 }
             }
         }
@@ -75,7 +75,7 @@ public class LandController : MonoBehaviour
         };
         _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         _lineRenderer.SetPositions(landPathPos);
-        StartCoroutine(MoveStickmanLinesCo());
+        
     }
 
     IEnumerator MoveStickmanLinesCo()
@@ -84,8 +84,10 @@ public class LandController : MonoBehaviour
         var targetLines = lastSelected.GetAvailableLines();
         if (lines.Count > targetLines.Count)
         {
-            yield return null;
+            ResetLineRenderer();
+            yield break;
         }
+        DrawPathBetweenLands();
 
         for (int i = lines.Count - 1; i >= 0; i--)
         {
@@ -95,20 +97,24 @@ public class LandController : MonoBehaviour
     }
 
 
-    IEnumerator MoveStickman(LineRenderer lineRenderer, Line line, Line _targetLine)
+ IEnumerator MoveStickman(LineRenderer lineRenderer, Line line, Line _targetLine)
+{
+    for (int i = 0; i < 4; i++)
     {
-        for (int i = 0; i < 4; i++)
+        if (line.stickmans[i] != null)
         {
             line.stickmans[i]
                 .ChooseCharactersForMovement(lineRenderer, _targetLine.lineCells[i], i, _targetLine);
             line.stickmans[i] = null;
             line.stickmanType = StickmanTypes.None;
-
-            yield return new WaitForSeconds(0.2f);
         }
 
-        line.isFull = false;
+        yield return new WaitForSeconds(0.2f);
     }
+
+    line.isFull = false;
+}
+
 
     List<Line> GetFirstAvalaibleGroup()
     {
