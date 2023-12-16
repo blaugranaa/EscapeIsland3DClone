@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,12 @@ public class Stickman : MonoBehaviour
 {
     public StickmanTypes _stickmanType;
     private LineRenderer _lineRenderer;
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     List<Vector3> pathList = new List<Vector3>();
 
@@ -31,7 +38,7 @@ public class Stickman : MonoBehaviour
                 Vector3 direction = (pathList[index + 1] - pathList[index]).normalized;
 
                 Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-
+                RunAnimation(true);
                 transform.DORotateQuaternion(rotation, 0.1f);
             }
         }).OnComplete(() =>
@@ -44,6 +51,8 @@ public class Stickman : MonoBehaviour
             finalLine.stickmanType = _stickmanType;
             finalLine.stickmans[order] = this;
             pathList.Clear();
+            RunAnimation(false);
+
             
 
             if (order == 3)
@@ -53,5 +62,10 @@ public class Stickman : MonoBehaviour
 
             }
         });
+    }
+
+    private void RunAnimation(bool isMoving)
+    {
+        _animator.SetBool("isMoving", isMoving);
     }
 }

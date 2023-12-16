@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6070134561275362720
+--- !u!1001 &2057674165429584005
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,51 +8,51 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0811703
+      value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.060658053
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: 919132149155446097, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_Name
       value: BlueStickman
       objectReference: {fileID: 0}
-    - target: {fileID: 7477672114596797951, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - target: {fileID: 7477672114596797951, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854ceee4723f6cf4588a8e4b06d28121, type: 2}
@@ -60,25 +60,55 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 756061717329856704}
-  m_SourcePrefab: {fileID: 100100000, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
---- !u!1 &6412029557828649201 stripped
+      addedObject: {fileID: 1105368405356775186}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3571653666932692084}
+  m_SourcePrefab: {fileID: 100100000, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
+--- !u!1 &1175221875574373844 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
-  m_PrefabInstance: {fileID: 6070134561275362720}
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
+  m_PrefabInstance: {fileID: 2057674165429584005}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &756061717329856704
+--- !u!114 &1105368405356775186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6412029557828649201}
+  m_GameObject: {fileID: 1175221875574373844}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cd792d0df587c74ba43e610901a1596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _stickmanType: 1
+--- !u!95 &3571653666932692084
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175221875574373844}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 0d6168a975c14e548bb66e6d4246beb0, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5f82d384ffcefe04abd196152a724442, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:RightFoot'\n\tTransform
+    'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:Spine1'\n\tTransform
+    'mixamorig:Spine2'\n\tTransform 'mixamorig:RightUpLeg'\n\tTransform 'mixamorig:RightForeArm'\n\tTransform
+    'mixamorig:LeftUpLeg'\n\tTransform 'mixamorig:Head'\n\tand more ...\n\tFrom animation
+    clip 'Male Standing Pose'"
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

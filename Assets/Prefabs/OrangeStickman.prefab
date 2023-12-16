@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrangeStickman
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5f82d384ffcefe04abd196152a724442, type: 2}
     - target: {fileID: 7477672114596797951, guid: e90ce7d4e022c96489706dc89d68c903, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
