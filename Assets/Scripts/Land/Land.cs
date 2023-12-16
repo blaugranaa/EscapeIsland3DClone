@@ -8,6 +8,7 @@ public class Land : MonoBehaviour
 {
     internal Line[] Lines;
     private List<Line> avalaibleLines = new List<Line>();
+    internal bool isCompleted;
 
     private void Awake()
     {
@@ -49,7 +50,8 @@ public class Land : MonoBehaviour
         if (sameLineCount==4)
         {
             Debug.Log($"COMPLETED {name}");
-        
+            isCompleted = true;
+
         }
     }
 

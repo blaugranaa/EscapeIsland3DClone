@@ -10,10 +10,8 @@ public class LandController : MonoBehaviour
     Land lastSelected;
     public Land[] Lands;
     private List<Line> sameTypeLines = new();
-
-
     LineRenderer _lineRenderer;
-
+    internal bool canClick = true;
 
     private void OnEnable()
     {
@@ -27,6 +25,8 @@ public class LandController : MonoBehaviour
 
     private void Update()
     {
+        if (canClick is not true)
+            return;
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
             Camera.main.nearClipPlane));
 
@@ -38,7 +38,7 @@ public class LandController : MonoBehaviour
             var land = hitInfo.collider.gameObject.GetComponent<Land>();
 
 
-            if (land is not null)
+            if (land is not null && land.isCompleted is not true)
             {
                 if (firstSelected is null)
                 {
@@ -55,6 +55,7 @@ public class LandController : MonoBehaviour
                 }
                 else
                 {
+                    canClick = false;
                     lastSelected = land;
 
                     firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(DrawPathBetweenLands);
@@ -145,6 +146,8 @@ public class LandController : MonoBehaviour
         firstSelected = null;
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
         sameTypeLines.Clear();
+        canClick = true;
+        
     }
 
     
