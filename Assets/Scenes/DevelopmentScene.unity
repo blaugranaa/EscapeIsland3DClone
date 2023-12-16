@@ -2314,13 +2314,31 @@ MonoBehaviour:
     AutoDestroy: 0
     clones: []
   - ID: OrangeStickman
-    SourcePrefab: {fileID: 8662583755419062784, guid: c75ed636ed9289d4fb944d2cf0f5a050, type: 3}
+    SourcePrefab: {fileID: 6255280262564945460, guid: c75ed636ed9289d4fb944d2cf0f5a050, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
     AutoDestroy: 0
     clones: []
   - ID: LineRenderer
     SourcePrefab: {fileID: 900312452852173434, guid: 2cad94f8be892854e93647fafb83b1d5, type: 3}
+    MinNumberOfObject: 10
+    AllowGrow: 1
+    AutoDestroy: 0
+    clones: []
+  - ID: confetti
+    SourcePrefab: {fileID: 5770768236535609421, guid: 1b3c87aeddd562e4d86130e72b57841c, type: 3}
+    MinNumberOfObject: 10
+    AllowGrow: 1
+    AutoDestroy: 0
+    clones: []
+  - ID: YellowStickman
+    SourcePrefab: {fileID: 3116387633420367541, guid: 1672c1283181329498517a6b9fada8f4, type: 3}
+    MinNumberOfObject: 10
+    AllowGrow: 1
+    AutoDestroy: 0
+    clones: []
+  - ID: GreenStickman
+    SourcePrefab: {fileID: 7786552883085864659, guid: 2bb00fd1dcd87ea48891440467b5c280, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
     AutoDestroy: 0

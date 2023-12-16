@@ -27,6 +27,8 @@ public class Land : MonoBehaviour
 
     void CheckLinesCompleted()
     {
+        if (isCompleted == true)
+             return;
         var frontLineType = StickmanTypes.None;
         bool isFirst = true;
         int sameLineCount = 0;
@@ -49,9 +51,8 @@ public class Land : MonoBehaviour
         
         if (sameLineCount==4)
         {
-            Debug.Log($"COMPLETED {name}");
             isCompleted = true;
-
+            PoolingSystem.Instance.InstantiateAPS("confetti", transform.position);
         }
     }
 
