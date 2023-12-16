@@ -3,5 +3,7 @@ public enum StickmanTypes
     None,
     Blue,
     Orange,
-    Yellow
+    Yellow,
+    Green,
+    Red
 }
