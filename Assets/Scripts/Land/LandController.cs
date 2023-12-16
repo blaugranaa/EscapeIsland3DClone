@@ -90,17 +90,33 @@ public class LandController : MonoBehaviour
         DrawPathBetweenLands();
         if (targetLines.Count<=3)
         {
-            Debug.Log(lastSelected.Lines[targetLines.Count].stickmanType);
-            Debug.Log(lastSelected.Lines[targetLines.Count ]);
+            if (lastSelected.Lines[targetLines.Count].stickmanType == lines[0].stickmanType)
+            {
+                for (int i = lines.Count - 1; i >= 0; i--)
+                {
+                    StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count - 1) - i], targetLines[i]));
+
+                    yield return new WaitForSeconds(0.9f);
+                }
+            }
+            else
+            {
+                ResetLineRenderer();
+            }
+           
+        }
+        else
+        {
+            for (int i = lines.Count - 1; i >= 0; i--)
+            {
+                StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count - 1) - i], targetLines[i]));
+
+                yield return new WaitForSeconds(0.9f);
+            }
         }
        
 
-        for (int i = lines.Count - 1; i >= 0; i--)
-        {
-            StartCoroutine(MoveStickman(_lineRenderer, lines[(lines.Count - 1) - i], targetLines[i]));
-
-            yield return new WaitForSeconds(0.9f);
-        }
+      
         
 
     
