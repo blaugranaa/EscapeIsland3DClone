@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +7,18 @@ using DG.Tweening;
 
 public class LandController : MonoBehaviour
 {
-    Land firstSelected;
-    Land lastSelected;
-    public Land[] Lands;
-    private List<Line> sameTypeLines = new();
-    LineRenderer _lineRenderer;
-    internal bool canClick = true;
+    private Land _firstSelected;
+    private Land _lastSelected;
+    private Land[] _lands;
+    private List<Line> _sameTypeLines = new();
+    private LineRenderer _lineRenderer;
+    private bool _canClick = true;
+    public int landNumToComplete;
+
+    private void Awake()
+    {
+        _lands = GetComponentsInChildren<Land>();
+    }
 
     private void OnEnable()
     {
@@ -25,7 +32,7 @@ public class LandController : MonoBehaviour
 
     private void Update()
     {
-        if (canClick is not true)
+        if (_canClick is not true)
             return;
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
             Camera.main.nearClipPlane));
@@ -40,25 +47,25 @@ public class LandController : MonoBehaviour
 
             if (land is not null && land.isCompleted is not true)
             {
-                if (firstSelected is null)
+                if (_firstSelected is null)
                 {
                     land.transform.DOMoveY(1, 0.3f);
 
-                    firstSelected = land;
+                    _firstSelected = land;
                 }
-                else if (firstSelected == land)
+                else if (_firstSelected == land)
                 {
                     land.transform.DOMoveY(0, 0.3f);
 
-                    firstSelected = null;
-                    lastSelected = null;
+                    _firstSelected = null;
+                    _lastSelected = null;
                 }
                 else
                 {
-                    canClick = false;
-                    lastSelected = land;
+                    _canClick = false;
+                    _lastSelected = land;
                     
-                    firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(()=>StartCoroutine(MoveStickmanLinesCo()));
+                    _firstSelected.transform.DOMoveY(0, 0.3f).OnComplete(()=>StartCoroutine(MoveStickmanLinesCo()));
                 }
             }
         }
@@ -68,10 +75,10 @@ public class LandController : MonoBehaviour
     {
         Vector3[] landPathPos = new Vector3[]
         {
-            new Vector3(firstSelected.transform.position.x, 0, firstSelected.transform.position.z),
-            new Vector3(0, 0, firstSelected.transform.position.z),
-            new Vector3(0, 0, lastSelected.transform.position.z),
-            lastSelected.transform.position
+            new Vector3(_firstSelected.transform.position.x, 0, _firstSelected.transform.position.z),
+            new Vector3(0, 0, _firstSelected.transform.position.z),
+            new Vector3(0, 0, _lastSelected.transform.position.z),
+            _lastSelected.transform.position
         };
         _lineRenderer = PoolingSystem.Instance.InstantiateAPS("LineRenderer").GetComponent<LineRenderer>();
         _lineRenderer.SetPositions(landPathPos);
@@ -81,7 +88,7 @@ public class LandController : MonoBehaviour
     IEnumerator MoveStickmanLinesCo()
     {
         var lines = GetFirstAvalaibleGroup();
-        var targetLines = lastSelected.GetAvailableLines();
+        var targetLines = _lastSelected.GetAvailableLines();
         if (lines.Count > targetLines.Count)
         {
             ResetLineRenderer();
@@ -90,7 +97,7 @@ public class LandController : MonoBehaviour
         DrawPathBetweenLands();
         if (targetLines.Count<=3)
         {
-            if (lastSelected.Lines[targetLines.Count].stickmanType == lines[0].stickmanType)
+            if (_lastSelected.Lines[targetLines.Count].stickmanType == lines[0].stickmanType)
             {
                 for (int i = lines.Count - 1; i >= 0; i--)
                 {
@@ -114,11 +121,6 @@ public class LandController : MonoBehaviour
                 yield return new WaitForSeconds(0.9f);
             }
         }
-    }
-
-    void CheckTargetLandColorType(Line line)
-    {
-        
     }
 
 
@@ -147,37 +149,46 @@ public class LandController : MonoBehaviour
         bool isFirst = true;
         for (var i = 0; i < 4; i++)
         {
-            if (firstSelected.Lines[i].stickmanType == StickmanTypes.None)
+            if (_firstSelected.Lines[i].stickmanType == StickmanTypes.None)
                 continue;
 
             if (isFirst)
             {
                 isFirst = false;
-                frontLineType = firstSelected.Lines[i].stickmanType;
-                sameTypeLines.Add(firstSelected.Lines[i]);
+                frontLineType = _firstSelected.Lines[i].stickmanType;
+                _sameTypeLines.Add(_firstSelected.Lines[i]);
                 continue;
             }
 
-            if (firstSelected.Lines[i].stickmanType == frontLineType)
+            if (_firstSelected.Lines[i].stickmanType == frontLineType)
             {
-                sameTypeLines.Add(firstSelected.Lines[i]);
+                _sameTypeLines.Add(_firstSelected.Lines[i]);
             }
             else
             {
-                return sameTypeLines;
+                return _sameTypeLines;
             }
         }
 
-        return sameTypeLines;
+        return _sameTypeLines;
     }
 
     public void ResetLineRenderer()
     {
-        lastSelected = null;
-        firstSelected = null;
+        _lastSelected = null;
+        _firstSelected = null;
         PoolingSystem.Instance.DestroyAPS(_lineRenderer.gameObject);
-        sameTypeLines.Clear();
-        canClick = true;
+        _sameTypeLines.Clear();
+        _canClick = true;
         
+    }
+
+    public void CheckLevelComplete()
+    {
+        landNumToComplete--;
+        if (landNumToComplete <=0)
+        {
+            EventManager.Broadcast(GameEvent.OnLevelEnd);
+        }
     }
 }

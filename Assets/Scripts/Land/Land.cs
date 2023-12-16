@@ -9,10 +9,12 @@ public class Land : MonoBehaviour
     internal Line[] Lines;
     private List<Line> avalaibleLines = new List<Line>();
     internal bool isCompleted;
+    private LandController _landController;
 
     private void Awake()
     {
         Lines = GetComponentsInChildren<Line>();
+        _landController = GetComponentInParent<LandController>();
     }
 
     private void OnEnable()
@@ -53,6 +55,9 @@ public class Land : MonoBehaviour
         {
             isCompleted = true;
             PoolingSystem.Instance.InstantiateAPS("confetti", transform.position);
+            _landController.CheckLevelComplete();
+
+
         }
     }
 

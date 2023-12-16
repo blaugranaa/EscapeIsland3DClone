@@ -396,6 +396,50 @@ Transform:
   - {fileID: 1703521438}
   m_Father: {fileID: 263158147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &230623811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 230623812}
+  - component: {fileID: 230623813}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &230623812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230623811}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1329856684}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &230623813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230623811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35080a26d14e1e24f95fee9c703ecfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &236548013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,10 +1963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c727b28482ae8eb419728c0d2783461f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lands:
-  - {fileID: 1761048750538509537}
-  - {fileID: 1454918683}
-  - {fileID: 263158148}
+  landNumToComplete: 0
 --- !u!1 &1241381615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,6 +2140,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1740536590}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &1329856683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329856684}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1329856684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329856683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540, y: 960, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 230623812}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1361417954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2638,13 +2711,13 @@ MonoBehaviour:
     SourcePrefab: {fileID: 1175221875574373844, guid: ac18e186ae4580c4098168b5e4bd1e01, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
-    AutoDestroy: 0
+    AutoDestroy: 1
     clones: []
   - ID: OrangeStickman
     SourcePrefab: {fileID: 6255280262564945460, guid: c75ed636ed9289d4fb944d2cf0f5a050, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
-    AutoDestroy: 0
+    AutoDestroy: 1
     clones: []
   - ID: LineRenderer
     SourcePrefab: {fileID: 900312452852173434, guid: 2cad94f8be892854e93647fafb83b1d5, type: 3}
@@ -2662,19 +2735,19 @@ MonoBehaviour:
     SourcePrefab: {fileID: 3116387633420367541, guid: 1672c1283181329498517a6b9fada8f4, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
-    AutoDestroy: 0
+    AutoDestroy: 1
     clones: []
   - ID: RedStickman
     SourcePrefab: {fileID: 2256448809198169461, guid: 7052633e1ddd3b0499bd1c21b50cc994, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
-    AutoDestroy: 0
+    AutoDestroy: 1
     clones: []
   - ID: GreenStickman
     SourcePrefab: {fileID: 7786552883085864659, guid: 2bb00fd1dcd87ea48891440467b5c280, type: 3}
     MinNumberOfObject: 10
     AllowGrow: 1
-    AutoDestroy: 0
+    AutoDestroy: 1
     clones: []
   DefaultCount: 10
 --- !u!1 &1667758005
@@ -3711,17 +3784,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 788832408}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &1761048750538509537 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5316647392869995312, guid: aa5168cf9bf17a840a4b16579d63cec4, type: 3}
-  m_PrefabInstance: {fileID: 6007757036126580741}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d28576693dc1d64ea5a596e2a5ce1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1794161954339875658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1004431086019891427, guid: aa5168cf9bf17a840a4b16579d63cec4, type: 3}
@@ -3821,3 +3883,4 @@ SceneRoots:
   - {fileID: 835347188}
   - {fileID: 1231078250}
   - {fileID: 1633878844}
+  - {fileID: 1329856684}
